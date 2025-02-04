@@ -18,8 +18,14 @@ const io = new Server(server, {
 io.on("connection", (socket) => {
   console.log(`New client connected: ${socket.id}`);
 
-  socket.on("emoji", (data) => {
-    socket.broadcast.emit("new_emoji", data);
+  socket.on("new_user", (data) => {
+    console.log("New user joined our chat room", data);
+
+    socket.broadcast.emit("user_joined", data);
+
+    // io.emit (sab ke pass)
+    // socket.emit (jisne new user diya tha uske pass only)
+    // socket.broadcast.emit (jisne new user diya tha usko chodh kar baki sab)
   });
 });
 
