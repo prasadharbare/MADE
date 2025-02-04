@@ -1,5 +1,5 @@
 "use client";
-import { Button, HeroUIProvider } from "@heroui/react";
+import { HeroUIProvider } from "@heroui/react";
 import Emoji from "@/component/Emoji";
 
 export default function Home() {

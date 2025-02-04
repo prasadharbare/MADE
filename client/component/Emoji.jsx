@@ -3,7 +3,7 @@ import { Button, Card } from "@heroui/react";
 import { io } from "socket.io-client";
 
 const server = io(
-  "https://refactored-rotary-phone-5g4x69w5vxrvh4p96-8000.app.github.dev/"
+  "https://maderoom.koeb.app/"
 );
 
 function Emoji() {
