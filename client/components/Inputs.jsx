@@ -8,28 +8,20 @@ function Inputs() {
 
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
-    if (
-      file.type === "image/png" ||
-      file.type === "image/jpeg" ||
-      file.type === "image/webp"
-    ) {
-      console.log("Image is supported!");
-      console.log(file);
 
-      const reader = new FileReader();
+    console.log("Image is supported!");
+    console.log(file);
 
-      reader.onloadend = function () {
-        // Here is the Base64 string
-        const base64String = reader.result;
-        console.log(base64String); // Base64 URI
-      };
+    const reader = new FileReader();
 
-      if (file) {
-        reader.readAsDataURL(file); // Converts image to base64 URI
-      }
+    reader.onloadend = function () {
+      // Here is the Base64 string
+      const base64String = reader.result;
+      console.log(base64String); // Base64 URI
+    };
 
-      // const url = URL.createObjectURL(file);
-      // console.log(url);
+    if (file) {
+      reader.readAsDataURL(file); // Converts image to base64 URI
     }
   };
 

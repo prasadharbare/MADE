@@ -10,8 +10,17 @@ import {
   Input,
   Button,
 } from "@heroui/react";
+import { useEffect } from "react";
 
 function SignUp({ setUser, socket }) {
+  // Check from session storage
+  useEffect(() => {
+    const session = sessionStorage.getItem("user");
+    if (session) {
+      setUser(session);
+    }
+  }, []);
+
   const onSubmit = (e) => {
     // Prevent default browser page refresh.
     e.preventDefault();
@@ -19,9 +28,14 @@ function SignUp({ setUser, socket }) {
     // Get form data as an object.
     const data = Object.fromEntries(new FormData(e.currentTarget));
 
-    // Emit this to our server.
-    setUser(data);
-    socket.emit("new_user", data);
+    // Set into session
+    sessionStorage.setItem("user", data.name);
+
+    // Emit to the server
+    socket.emit("user", data.name);
+
+    // Update parent's state
+    setUser(data.name);
   };
 
   return (
