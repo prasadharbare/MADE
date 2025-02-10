@@ -62,6 +62,7 @@ function Inputs() {
         name="file"
         ref={inputUpload}
         hidden
+        accept="image/png, image/jpeg"
         onChange={handleFileUpload}
       />
 
