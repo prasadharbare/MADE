@@ -57,7 +57,7 @@ function Inputs({ socket, name, setMessages }) {
 
   return (
     <form
-      className="absolute bottom-0 left-0 w-full sm:mb-5 flex sm:gap-1"
+      className="absolute bottom-0  w-full max-w-6xl left-1/2 -translate-x-1/2 sm:mb-5 flex sm:gap-1"
       onSubmit={handleSubmit}
     >
       <Input

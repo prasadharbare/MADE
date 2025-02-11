@@ -20,13 +20,11 @@ export default function Home() {
 
   return (
     <HeroUIProvider>
-      <div className="min-h-screen max-h-screen">
+      <div className="min-h-screen max-h-screen bg-gradient-to-r from-[#fbed96] to-[#abecd6]">
         {user ? (
-          <div className="bg-violet-200 min-h-screen">
-            <div className="container mx-auto relative min-h-screen p-4">
-              <Messages messages={messages} id={socket.id} />
-              <Inputs socket={socket} name={user} setMessages={setMessages} />
-            </div>
+          <div className="container mx-auto relative min-h-screen p-4">
+            <Messages messages={messages} id={socket.id} />
+            <Inputs socket={socket} name={user} setMessages={setMessages} />
           </div>
         ) : (
           <SignUp setUser={setUser} socket={socket} />
