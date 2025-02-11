@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 
 const socket = io(
-  "https://refactored-rotary-phone-5g4x69w5vxrvh4p96-8000.app.github.dev"
+  "https://crispy-guacamole-g4579pjrqjrgc95p7-8000.app.github.dev/"
 );
 
 export default function Home() {
@@ -15,6 +15,15 @@ export default function Home() {
   useEffect(() => {
     socket.on("new_message", (msg) => {
       setMessages((prevState) => [...prevState, msg]);
+    });
+  }, []);
+
+  useEffect(() => {
+    socket.on("new_user", (name) => {
+      setMessages((prevState) => [
+        ...prevState,
+        { type: "user", content: name },
+      ]);
     });
   }, []);
 

@@ -23,8 +23,8 @@ const io = new Server(server, {
 io.on("connection", (socket) => {
   console.log(`New client connected: ${socket.id}`);
 
-  socket.on("user", (data) => {
-    socket.broadcast.emit("new_user", data);
+  socket.on("user", (name) => {
+    socket.broadcast.emit("new_user", name);
   });
 
   socket.on("message", async (data) => {
@@ -40,11 +40,13 @@ io.on("connection", (socket) => {
       };
 
       const response = await axios.post(URL, query, options);
-      const newMessage = { ...data, content: response };
+      const newMessage = {
+        ...data,
+        type: "ai",
+        content: response.data.res.response,
+      };
 
-      console.log(response.data.res.response);
-
-      socket.broadcast.emit("new_message", newMessage);
+      io.emit("new_message", newMessage);
     }
     {
       socket.broadcast.emit("new_message", data);
