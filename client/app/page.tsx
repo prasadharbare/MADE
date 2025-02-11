@@ -10,10 +10,11 @@ const socket = io(
 
 export default function Home() {
   const [user, setUser] = useState(null);
+  const [messages, setMessages] = useState([]);
 
   useEffect(() => {
-    socket.on("user_joined", (data) => {
-      console.log(data);
+    socket.on("new_message", (msg) => {
+      setMessages((prevState) => [...prevState, msg]);
     });
   }, []);
 
@@ -23,8 +24,8 @@ export default function Home() {
         {user ? (
           <div className="bg-violet-200 min-h-screen">
             <div className="container mx-auto relative min-h-screen p-4">
-              <Messages />
-              <Inputs socket={socket} id={socket.id} name={user} />
+              <Messages messages={messages} id={socket.id} />
+              <Inputs socket={socket} name={user} setMessages={setMessages} />
             </div>
           </div>
         ) : (
