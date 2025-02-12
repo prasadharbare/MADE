@@ -29,6 +29,8 @@ io.on("connection", (socket) => {
 
   socket.on("message", async (data) => {
     if (data.type === "text" && data.content.startsWith("@ai")) {
+      socket.broadcast.emit("new_message", data); // Send the ai prompt message
+
       const query = {
         prompt: data.content.replaceAll("@ai"),
       };
@@ -46,9 +48,8 @@ io.on("connection", (socket) => {
         content: response.data.res.response,
       };
 
-      io.emit("new_message", newMessage);
-    }
-    {
+      io.emit("new_message", newMessage); // Send the ai response back
+    } else {
       socket.broadcast.emit("new_message", data);
     }
   });
