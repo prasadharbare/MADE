@@ -1,5 +1,6 @@
 import Chat from "./Chat";
 import NewUser from "./NewUser";
+import Typing from "./Typing";
 
 function Messages({ id, messages }) {
   return (
@@ -11,6 +12,7 @@ function Messages({ id, messages }) {
           <Chat key={idx} message={message} self={message.user.id === id} />
         )
       )}
+      <Typing users={["Jack", "Bee"]} />
     </div>
   );
 }

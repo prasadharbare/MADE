@@ -5,12 +5,13 @@ import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 
 const socket = io(
-  "https://crispy-guacamole-g4579pjrqjrgc95p7-8000.app.github.dev/"
+  "https://refactored-rotary-phone-5g4x69w5vxrvh4p96-8000.app.github.dev"
 );
 
 export default function Home() {
   const [user, setUser] = useState(null);
   const [messages, setMessages] = useState([]);
+  const [typing, setTyping] = useState([]);
 
   useEffect(() => {
     socket.on("new_message", (msg) => {
@@ -27,12 +28,31 @@ export default function Home() {
     });
   }, []);
 
+  useEffect(() => {
+    socket.on("user_typing", (data) => {
+      setTyping((prevState) => {
+        const includes = prevState.some((obj) => obj.name === data.name);
+
+        // If name is not there and is typing
+        if (!includes && data.status === true) {
+          return [...prevState, data];
+        } else if (data.status === false) {
+          // If not typing anymore
+          return prevState.filter((obj) => obj.name !== data.name);
+        } else {
+          // Otherwise
+          return prevState;
+        }
+      });
+    });
+  }, []);
+
   return (
     <HeroUIProvider>
       <div className="min-h-screen max-h-screen bg-gradient-to-r from-[#fbed96] to-[#abecd6]">
         {user ? (
           <div className="container mx-auto relative min-h-screen p-4">
-            <Messages messages={messages} id={socket.id} />
+            <Messages messages={messages} id={socket.id} typing={typing} />
             <Inputs socket={socket} name={user} setMessages={setMessages} />
           </div>
         ) : (
