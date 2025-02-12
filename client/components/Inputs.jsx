@@ -35,6 +35,7 @@ function Inputs({ socket, name, setMessages }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    socket.emit("typing", { name, status: false });
 
     if (!input) {
       inputUpload.current.click();
@@ -64,7 +65,10 @@ function Inputs({ socket, name, setMessages }) {
         type="text"
         label="Enter your message"
         value={input}
-        onChange={(e) => setInput(e.target.value)}
+        onChange={(e) => {
+          setInput(e.target.value);
+          socket.emit("typing", { name, status: true });
+        }}
         autoComplete="off"
       />
 

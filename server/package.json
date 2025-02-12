@@ -3,8 +3,8 @@
   "module": "server.ts",
   "type": "module",
   "scripts": {
-    "dev": "bun --watch server.ts",
-    "start": "bun run server.ts"
+    "dev": "bun --env-file=.env --watch server.ts",
+    "start": "bun --env-file=.env server.ts"
   },
   "devDependencies": {
     "@types/bun": "latest"
@@ -16,7 +16,6 @@
     "@types/express": "^5.0.0",
     "axios": "^1.7.9",
     "express": "^4.21.2",
-    "socket.io": "^4.8.1",
-    "socket.io-client": "^4.8.1"
+    "socket.io": "^4.8.1"
   }
 }
